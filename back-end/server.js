@@ -4,8 +4,10 @@ const dotenv = require("dotenv")
 const cors = require('cors')
 // Data:
 const adminData = require("./admin_data")
+const employeesData = require("./employees_data")
 // Models:
 const Admins = require("./models/admin_model")
+const EmployeesTrack = require("./models/employees_modal")
 // Routes:
 const adminLoginRoute = require("./routes/admin_routes")
 
@@ -22,10 +24,10 @@ app.use("/api/admin-login/",adminLoginRoute)
 mongoose.connect(process.env.ATLAS_URI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, (err, db) => {
     if (err) throw err;
 
-    if(Admins.collection.countDocuments(function (err, count) {
+    if(EmployeesTrack.collection.countDocuments(function (err, count) {
         if (!err && count === 0) {
             // It's empty
-            Admins.insertMany(adminData).then(()=>{ 
+            EmployeesTrack.insertMany(employeesData).then(()=>{ 
             console.log("Data inserted")  // Success 
         }).catch((error)=>{ 
             console.log(error)      // Failure 
