@@ -1,0 +1,3 @@
+export const ALL_EMP_REQUEST = "ALL_EMP_REQUEST"
+export const ALL_EMP_SUCCESS = "ALL_EMP_SUCCESS"
+export const ALL_EMP_FAILURE = "ALL_EMP_FAILURE"
