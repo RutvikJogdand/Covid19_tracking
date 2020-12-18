@@ -10,6 +10,9 @@ const Admins = require("./models/admin_model")
 const EmployeesTrack = require("./models/employees_modal")
 // Routes:
 const adminLoginRoute = require("./routes/admin_routes")
+const getAllEmployeesRoute = require("./routes/employee_routes")
+const makeEmpCovidPositiveRoute = require("./routes/employee_routes")
+const makeEmpCovidNegativeRoute = require("./routes/employee_routes")
 
 dotenv.config()
 
@@ -20,6 +23,10 @@ app.use( express.json() )
 
 // Admin routes:
 app.use("/api/admin-login/",adminLoginRoute)
+// Employee routes:
+app.use("/api/get-all/",getAllEmployeesRoute)
+app.use("/api/mark-covid-positive/",makeEmpCovidPositiveRoute)
+app.use("/api/make-covid-negative/",makeEmpCovidNegativeRoute)
 
 mongoose.connect(process.env.ATLAS_URI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, (err, db) => {
     if (err) throw err;
