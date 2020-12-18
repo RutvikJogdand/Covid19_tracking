@@ -8,6 +8,8 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import AllEmployees from '../AllEmployees/AllEmployees';
+import CovidPostiveEmployees from '../CovidPositiveEmployees/CovidPositiveEmployees';
+import { useSelector } from 'react-redux';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -53,6 +55,8 @@ export default function MainTabs() {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  const allEmpArr = useSelector(state => state.allEmpRoot.all_emp_arr)
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -73,8 +77,8 @@ export default function MainTabs() {
         //   variant="fullWidth"S
           aria-label="full width tabs example"
         >
-          <Tab label="All Employees" {...a11yProps(0)} />
-          <Tab label="Covid +ve" {...a11yProps(1)} />
+          <Tab label={`All Employees (${allEmpArr.length>0?allEmpArr.length: "Loading.."})`  }   {...a11yProps(0)} />
+          <Tab label={`Covid +ve (${allEmpArr.length>0?allEmpArr.filter(item => item.covid_positive === true).length: "Loading.."})`  } {...a11yProps(1)} />
           <Tab label="Quarantine" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
@@ -87,7 +91,7 @@ export default function MainTabs() {
           <AllEmployees />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          Item Two
+          <CovidPostiveEmployees/>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           Item Three

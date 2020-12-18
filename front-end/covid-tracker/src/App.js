@@ -1,10 +1,10 @@
 import './App.css';
-import MainDrawer from './Components/MainDrawer/MainDrawer';
+import Routes from './Routes/Routes';
 
 function App() {
   return (
     <div className="App">
-      <MainDrawer />
+      <Routes/>
     </div>
   );
 }
