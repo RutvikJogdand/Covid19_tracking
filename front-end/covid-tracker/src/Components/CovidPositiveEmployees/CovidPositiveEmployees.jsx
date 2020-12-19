@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import styles from "./CovidPositiveEmployees.module.css"
 
 const useStyles = makeStyles({
   table: {
@@ -58,6 +59,8 @@ export default function CovidPostiveEmployees() {
   const [quarantineArr, setQuarArr] = React.useState([]) //This sets the quarantines array when clicking on the number of quarantines
   const [Qname, setQname] = React.useState("") //This sets the name of the person who the quarantines came in contact with when clicking on the number of quarantines
   const [Qid, setQid] = React.useState("") //This sets the ID of the person who the quarantines came in contact with when clicking on the number of quarantines
+  const [manDays, setManDays] = React.useState(0)
+  const [daysSaved, setDaysSaved] = React.useState(0)
 
   const handleOpen2 = (ID, Name) => {
 
@@ -69,9 +72,18 @@ export default function CovidPostiveEmployees() {
 
   const handleOpenQ = (id, Name, QArr) => {
 
+    let manDaysTemp = 0
     setOpenQ(true)
     setQname(Name)
     setQuarArr([...QArr])
+
+    for(let i = 0; i<QArr.length; i++)
+    {
+      manDaysTemp = manDaysTemp + QArr[i].man_days
+    }
+
+    setManDays(manDaysTemp)
+    setDaysSaved((QArr.length*7) - manDaysTemp)
     setQid(id)
   }
 
@@ -79,7 +91,8 @@ export default function CovidPostiveEmployees() {
     setOpen2(false);
     setID("")
     setName("")
-    setQid("")
+   
+
   };
 
   const handleCloseQ = () => {
@@ -87,6 +100,9 @@ export default function CovidPostiveEmployees() {
     setOpenQ(false)
     setQname("")
     setQuarArr([])
+    setQid("")
+    setManDays(0)
+    setDaysSaved(0)
   }
 
   const handleRecovered = () => {
@@ -141,7 +157,7 @@ export default function CovidPostiveEmployees() {
                         <TableCell>{row.Department}</TableCell>
                         <TableCell>{row.subDepartment}</TableCell>
                         <TableCell> {row.man_days} </TableCell>
-                        <TableCell onClick={()=>handleOpenQ(row.ID, row.Name, row.in_contact)}><span>{row.in_contact.length}</span> </TableCell>
+                        <TableCell onClick={()=>handleOpenQ(row.ID, row.Name, row.in_contact)}><span className={styles.inContact}>{row.in_contact.length}</span> </TableCell>
                         <TableCell>
                               <button onClick={() => handleOpen2(row.ID, row.Name)} className="btn btn-success">Mark Recover</button>
                         </TableCell>
@@ -209,31 +225,32 @@ export default function CovidPostiveEmployees() {
               quarantineArr.length > 0 ?
               <>
                  <h2 id="transition-modal-title">Employees Quarantined</h2>
-            <p id="transition-modal-description">Covid +ve: {Qid}, {Qname}</p>
-            <div className={classes2.alignBtns}>
-                <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="simple table">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell> <h5> Emp ID </h5> </TableCell>
-                          <TableCell> <h5> Name </h5> </TableCell>
-                          <TableCell> <h5> Recommended days </h5> </TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {quarantineArr && quarantineArr.map((row) => (
-                          <TableRow key={row.ID}>
-                            <TableCell component="th" scope="row">
-                              {row.ID}
-                            </TableCell>
-                            <TableCell>{row.Name}</TableCell>
-                            <TableCell> {row.man_days} </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-            </div>
+                <p id="transition-modal-description">Covid +ve: {Qid}, {Qname}</p>
+                <p className={styles.manDaysData}> # of Employees: {quarantineArr.length} | Man days: {manDays} | Man days saved: {daysSaved} </p>
+                <div className={classes2.alignBtns}>
+                    <TableContainer component={Paper}>
+                        <Table className={classes.table} aria-label="simple table">
+                          <TableHead>
+                            <TableRow>
+                              <TableCell> <h5> Emp ID </h5> </TableCell>
+                              <TableCell> <h5> Name </h5> </TableCell>
+                              <TableCell> <h5> Recommended days </h5> </TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            {quarantineArr && quarantineArr.map((row) => (
+                              <TableRow key={row.ID}>
+                                <TableCell component="th" scope="row">
+                                  {row.ID}
+                                </TableCell>
+                                <TableCell>{row.Name}</TableCell>
+                                <TableCell> {row.man_days} </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                </div>
               </>
               :
               <div>

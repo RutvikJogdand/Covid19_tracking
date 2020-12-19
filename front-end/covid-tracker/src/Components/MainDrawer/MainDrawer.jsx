@@ -8,6 +8,11 @@ import Typography from '@material-ui/core/Typography';
 // import Divider from '@material-ui/core/Divider';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MainTabs from '../MainTabs/MainTabs';
+import Popover from '@material-ui/core/Popover';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { Link, useHistory } from "react-router-dom";
+import {logout} from "./../../Redux/AdminLogin/AdminLoginActions"
+import { useDispatch, useSelector } from 'react-redux';
 
 const drawerWidth = 140;
 
@@ -41,6 +46,33 @@ const useStyles = makeStyles((theme) => ({
 export default function MainDrawer() {
   const classes = useStyles();
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const loginStatus = useSelector(state => state.loginRoot.login_status)
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+
+  };
+  
+  const handleLogout = () => {
+    
+    dispatch(logout())
+
+  }
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  if(loginStatus === false)
+  {
+    history.push("/")
+  }
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -49,9 +81,33 @@ export default function MainDrawer() {
           {/* <Typography variant="h6" >
             Permanent drawer
           </Typography> */}
-          <Typography className={classes.flexAlign} variant="h6" noWrap>
+          <Typography style={{cursor:"pointer"}} aria-describedby={id} onClick={handleClick} className={classes.flexAlign} variant="h6" noWrap>
             <AccountCircleIcon/>
           </Typography>
+          <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <Typography className={classes.typography}>
+          <Link to="/">
+            <div onClick={handleLogout} style={{textAlign:"center", padding:"10px"}}>
+              <ExitToAppIcon />
+              <p>Logout</p>
+            </div>
+          </Link>
+
+        </Typography>
+      </Popover>
         </Toolbar>
       </AppBar>
       <Drawer

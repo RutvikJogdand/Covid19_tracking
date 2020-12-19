@@ -1,5 +1,6 @@
 .alertBox{
     position: relative;
-    bottom: 100px;
+    bottom: -14px;
     width: 200px;
+    left: 44%;
 }

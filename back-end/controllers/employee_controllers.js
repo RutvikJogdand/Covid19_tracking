@@ -72,6 +72,21 @@ const markEmployeeRecovered = (req, res) => {
       })
       .catch((err) => res.status(400).json("Error: " + err));
 
+    EmployeesTrack.findOne({in_contact:{$elemMatch: {ID:id}}})
+    .then((res) => {
+
+      console.log(res)
+
+      res.in_contact = res.in_contact.filter(item => item.ID !== id);
+
+        res
+          .save()
+          .then(() => res.json("Employee updated Successfully"))
+          .catch((err) => res.status(400).json("Error: " + err));
+
+    })
+     
+
 }
 
 module.exports = {getAllEmployees, markEmployeeCovidPositive, markEmployeeRecovered}

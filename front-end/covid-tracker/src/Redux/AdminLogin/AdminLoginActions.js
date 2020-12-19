@@ -1,4 +1,4 @@
-import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE} from "./AdminLoginActionsTypes"
+import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT} from "./AdminLoginActionsTypes"
 import axios from "axios"
 
 export const login_req = () => ({
@@ -33,3 +33,7 @@ export const admin_login = (payload) => (dispatch) => {
         dispatch(login_failure(err))
     })
 }
+
+export const logout = () => ({
+    type: LOGOUT
+}) 

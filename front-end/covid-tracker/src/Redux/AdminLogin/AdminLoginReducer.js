@@ -1,4 +1,4 @@
-import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE} from "./AdminLoginActionsTypes"
+import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT} from "./AdminLoginActionsTypes"
 
 export const loginInitState = {
 
@@ -26,6 +26,12 @@ const loginReducer = (state = loginInitState, action) => {
             return{
                 ...state,
                login_status: false
+            }  
+            
+        case LOGOUT:
+            return{
+                ...state,
+                login_status: false
             }    
 
         default:
