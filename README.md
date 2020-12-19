@@ -46,5 +46,16 @@ To logout, click on the user icon on the top right corner
 ### List of assumptions:
 Here i have considered two employees to have come in contact with two employees each( which showcases the contact tracing feature)
 
+### Tech stack and tools used:
+<ul>
+  <li> React </li>
+  <li> Redux </li>
+  <li> MongoDB </li>
+  <li> NodeJS </li>
+  <li> ExpressJS </li>
+  <li> Material UI </li>
+  <li> CSS </li>
+ </ul>
+
 ### Project Link:
 <a href="https://covid19-tracking.vercel.app/"> Covid Tracking App</a>
