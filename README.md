@@ -40,6 +40,9 @@ Also if you click on any of the employee's Number of Quarantines field, It would
 <br/>
 Here it shows that the employee <code> Sahab Singh </code> came in contact with two other employees(who also have been recommended certain amount of days of quarantine based on their date of infection, default amount of days is 7)
 
+### Logout:
+To logout, click on the user icon on the top right corner
+
 ### List of assumptions:
 Here i have considered two employees to have come in contact with two employees each( which showcases the contact tracing feature)
 
