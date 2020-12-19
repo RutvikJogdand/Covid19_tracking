@@ -74,7 +74,7 @@ let employees = [
         "covid_positive": true,
         "infection_date":"8/9/2020",
         "in_contact":[],
-        "status": "Healthy",
+        "status": "Covid+ve",
         "man_days":5
     },
     {
@@ -87,7 +87,7 @@ let employees = [
         "covid_positive": true,
         "infection_date":"8/7/2020",
         "in_contact":[],
-        "status": "Healthy",
+        "status": "Covid+ve",
         "man_days":3
     },
     {
@@ -137,7 +137,7 @@ let employees = [
         "covid_positive": true,
         "infection_date":"5/19/2020",
         "in_contact":[],
-        "status": "Healthy",
+        "status": "Covid+ve",
         "man_days": 6
     },
     {
@@ -150,7 +150,7 @@ let employees = [
         "covid_positive": true,
         "infection_date":"5/18/2020",
         "in_contact":[],
-        "status": "Healthy",
+        "status": "Covid+ve",
         "man_days": 5
     },
     
