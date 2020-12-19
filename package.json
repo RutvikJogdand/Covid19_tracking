@@ -1,0 +1,19 @@
+{
+  "name": "covid19_tracking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RutvikJogdand/Covid19_tracking.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RutvikJogdand/Covid19_tracking/issues"
+  },
+  "homepage": "https://github.com/RutvikJogdand/Covid19_tracking#readme"
+}
