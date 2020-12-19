@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles({
   table: {
@@ -53,10 +52,12 @@ export default function CovidPostiveEmployees() {
   console.log(quarantines)
   const [empSearch, setEmpSearch] = React.useState("")
   const [open2, setOpen2] = React.useState(false);
+  const [openQuarantines, setOpenQ] = React.useState(false);
   const [reqId, setID] = React.useState("")
   const [reqName, setName] = React.useState("")
-  const history = useHistory()
-
+  const [quarantineArr, setQuarArr] = React.useState([]) //This sets the quarantines array when clicking on the number of quarantines
+  const [Qname, setQname] = React.useState("") //This sets the name of the person who the quarantines came in contact with when clicking on the number of quarantines
+  const [Qid, setQid] = React.useState("") //This sets the ID of the person who the quarantines came in contact with when clicking on the number of quarantines
 
   const handleOpen2 = (ID, Name) => {
 
@@ -66,12 +67,27 @@ export default function CovidPostiveEmployees() {
 
   }
 
+  const handleOpenQ = (id, Name, QArr) => {
+
+    setOpenQ(true)
+    setQname(Name)
+    setQuarArr([...QArr])
+    setQid(id)
+  }
 
   const handleClose2 = () => {
     setOpen2(false);
     setID("")
     setName("")
+    setQid("")
   };
+
+  const handleCloseQ = () => {
+
+    setOpenQ(false)
+    setQname("")
+    setQuarArr([])
+  }
 
   const handleRecovered = () => {
     handleClose2()
@@ -84,18 +100,11 @@ export default function CovidPostiveEmployees() {
     setEmpSearch(e.target.value)
   }
 
-//   const handleViewAll = () => {
-
-//     // history.push("/dashboard")
-//     dispatch(get_all_emp())
-//   }
-
   useEffect(() => {
       
       dispatch(get_all_emp())
     },[dispatch])
     
-    // console.log(allEmpArr)
   return (
     <>  
     {/* Below Table displays list of all existing employees in the database */}
@@ -107,43 +116,50 @@ export default function CovidPostiveEmployees() {
         </div>
         <br/>
         <br/>
-        <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Emp ID</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Department</TableCell>
-              <TableCell>Sub Department</TableCell>
-              <TableCell>Quarantine Days</TableCell>
-              <TableCell>Number Of Quarantines</TableCell>
-              <TableCell>Action</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {allEmpArr && allEmpArr.filter(item => item.covid_positive === true).filter(item => item.Name.toLowerCase().includes(empSearch.toLowerCase())).map((row) => (
-              <TableRow key={row.ID}>
-                <TableCell component="th" scope="row">
-                  {row.ID}
-                </TableCell>
-                <TableCell>{row.Name}</TableCell>
-                <TableCell>{row.Department}</TableCell>
-                <TableCell>{row.subDepartment}</TableCell>
-                <TableCell> 14  </TableCell>
-                <TableCell>{row.in_contact.length}</TableCell>
-                <TableCell>
-                      <button onClick={() => handleOpen2(row.ID, row.Name)} className="btn btn-success">Mark Recover</button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+        {
+            allEmpArr.filter(item => item.Name.toLowerCase().includes(empSearch.toLowerCase())).length > 0  ?
+              <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell> <h5> Emp ID </h5> </TableCell>
+                      <TableCell> <h5> Name </h5> </TableCell>
+                      <TableCell> <h5> Department </h5> </TableCell>
+                      <TableCell> <h5> Sub Department </h5> </TableCell>
+                      <TableCell> <h5> Quarantine Days </h5> </TableCell>
+                      <TableCell> <h5> Number Of Quarantines </h5> </TableCell>
+                      <TableCell> <h5> Action </h5> </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {allEmpArr && allEmpArr.filter(item => item.covid_positive === true).filter(item => item.Name.toLowerCase().includes(empSearch.toLowerCase())).map((row) => (
+                      <TableRow key={row.ID}>
+                        <TableCell component="th" scope="row">
+                          {row.ID}
+                        </TableCell>
+                        <TableCell>{row.Name}</TableCell>
+                        <TableCell>{row.Department}</TableCell>
+                        <TableCell>{row.subDepartment}</TableCell>
+                        <TableCell> {row.man_days} </TableCell>
+                        <TableCell onClick={()=>handleOpenQ(row.ID, row.Name, row.in_contact)}><span>{row.in_contact.length}</span> </TableCell>
+                        <TableCell>
+                              <button onClick={() => handleOpen2(row.ID, row.Name)} className="btn btn-success">Mark Recover</button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+           :
+           <div>
+               <p>No employees found</p>
+           </div>
+        }
+       
       </>
       :
       <div>
         <p>No employees found</p>
-        {/* <button className="btn btn-dark" onClick={handleViewAll}>View All Employees</button> */}
       </div>
   
     }
@@ -170,6 +186,61 @@ export default function CovidPostiveEmployees() {
                 <button onClick={handleClose2} className="btn btn-dark m-2">Cancel</button>
                 <button onClick={handleRecovered} className="btn btn-danger">Confirm</button>
             </div>
+          </div>
+        </Fade>
+    </Modal>
+
+    {/* Modal to display quarantines */}
+    <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes2.modal}
+        open={openQuarantines}
+        onClose={handleCloseQ}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={openQuarantines}>
+          <div className={classes2.paper}>
+            {
+              quarantineArr.length > 0 ?
+              <>
+                 <h2 id="transition-modal-title">Employees Quarantined</h2>
+            <p id="transition-modal-description">Covid +ve: {Qid}, {Qname}</p>
+            <div className={classes2.alignBtns}>
+                <TableContainer component={Paper}>
+                    <Table className={classes.table} aria-label="simple table">
+                      <TableHead>
+                        <TableRow>
+                          <TableCell> <h5> Emp ID </h5> </TableCell>
+                          <TableCell> <h5> Name </h5> </TableCell>
+                          <TableCell> <h5> Recommended days </h5> </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {quarantineArr && quarantineArr.map((row) => (
+                          <TableRow key={row.ID}>
+                            <TableCell component="th" scope="row">
+                              {row.ID}
+                            </TableCell>
+                            <TableCell>{row.Name}</TableCell>
+                            <TableCell> {row.man_days} </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+            </div>
+              </>
+              :
+              <div>
+                <p>No Employees to be Quarantined</p>
+              </div>
+            }
+            
           </div>
         </Fade>
     </Modal>

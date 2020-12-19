@@ -5,7 +5,6 @@ const getAllEmployees = (req, res) => {
     return EmployeesTrack.find()
       .then(result => {
         if(result) {
-        //   console.log(`Successfully found: ${result}.`);
           res.send(result)
         } 
        
@@ -18,11 +17,6 @@ const markEmployeeCovidPositive = (req, res) => {
     const {id} = req.body
     EmployeesTrack.findOne({ID:id})
       .then((employee) => {
-
-        // if(employee)
-        // {
-        //     console.log(employee)
-        // }
         
         employee._id = employee._id
         employee.ID = employee.ID ;
@@ -33,11 +27,10 @@ const markEmployeeCovidPositive = (req, res) => {
         employee.subDepartment = employee.subDepartment;
         employee.in_contact = employee.in_contact;
         employee.status = "Covid+ve";
-        employee.infection_date = new Date(employee.infection_date),
-        employee.covid_positive = true
+        employee.infection_date = new Date(employee.infection_date);
+        employee.covid_positive = true;
+        employee.man_days = 7
 
-  
-        // console.log(employee)
         employee
           .save()
           .then(() => res.json("Employee updated Successfully"))
@@ -57,11 +50,6 @@ const markEmployeeRecovered = (req, res) => {
     EmployeesTrack.findOne({ID:id})
       .then((employee) => {
 
-        // if(employee)
-        // {
-        //     console.log(employee)
-        // }
-        
         employee._id = employee._id
         employee.ID = employee.ID ;
         employee.Name = employee.Name;
@@ -72,10 +60,9 @@ const markEmployeeRecovered = (req, res) => {
         employee.in_contact = employee.in_contact;
         employee.status = "Healthy";
         employee.infection_date = "",
-        employee.covid_positive = false
+        employee.covid_positive = false,
+        employee.man_days = 0
 
-  
-        // console.log(employee)
         employee
           .save()
           .then(() => res.json("Employee updated Successfully"))
@@ -85,7 +72,6 @@ const markEmployeeRecovered = (req, res) => {
       })
       .catch((err) => res.status(400).json("Error: " + err));
 
-    // console.log(id, "IDDDD")
 }
 
 module.exports = {getAllEmployees, markEmployeeCovidPositive, markEmployeeRecovered}

@@ -10,7 +10,8 @@ let employees = [
         "covid_positive": false,
         "infection_date":"",
         "in_contact":[],
-        "status": "Healthy"
+        "status": "Healthy",
+        "man_days":0
         
     },
     {
@@ -23,7 +24,8 @@ let employees = [
         "covid_positive": false,
         "infection_date":"",
         "in_contact":[],
-        "status": "Healthy"
+        "status": "Healthy",
+        "man_days":0
     },
     {
         "ID": "1000228",
@@ -33,7 +35,7 @@ let employees = [
         "Department": "MACHINE SHOP",
         "subDepartment": "Shop",
         "covid_positive": true,
-        "infection_date":"11/8/2020",
+        "infection_date":"8/11/2020",
         "in_contact":[
             {
                 "ID": "9001892",
@@ -43,7 +45,8 @@ let employees = [
                 "Department": "STORES",
                 "subDepartment": "store",
                 "covid_positive": true,
-                "infection_date":"9/8/2020",
+                "infection_date":"8/9/2020",
+                "man_days": 5
             },
             {
                 "ID": "9500082",
@@ -53,11 +56,13 @@ let employees = [
                 "Department": "CASTING",
                 "subDepartment": "QL",
                 "covid_positive": true,
-                "infection_date":"7/8/2020"
+                "infection_date":"8/7/2020",
+                "man_days": 3
             }
             
         ],
-        "status": "Covid+ve"
+        "status": "Covid+ve",
+        "man_days":7
     },
     {
         "ID": "9001892",
@@ -66,10 +71,11 @@ let employees = [
         "Designation": "Executive",
         "Department": "STORES",
         "subDepartment": "store",
-        "covid_positive": false,
-        "infection_date":"",
+        "covid_positive": true,
+        "infection_date":"8/9/2020",
         "in_contact":[],
-        "status": "Healthy"
+        "status": "Healthy",
+        "man_days":5
     },
     {
         "ID": "9500082",
@@ -78,10 +84,11 @@ let employees = [
         "Designation": "FL",
         "Department": "CASTING",
         "subDepartment": "QL",
-        "covid_positive": false,
-        "infection_date":"",
+        "covid_positive": true,
+        "infection_date":"8/7/2020",
         "in_contact":[],
-        "status": "Healthy"
+        "status": "Healthy",
+        "man_days":3
     },
     {
         "ID": "9500084",
@@ -91,7 +98,7 @@ let employees = [
         "Department": "CASTING",
         "subDepartment": "QL",
         "covid_positive": true,
-        "infection_date":"20/5/2020",
+        "infection_date":"5/20/2020",
         "in_contact":[
             {
                 
@@ -102,7 +109,8 @@ let employees = [
                 "Department": "CASTING",
                 "subDepartment": "QL",
                 "covid_positive": true,
-                "infection_date":"19/5/2020"
+                "infection_date":"5/19/2020",
+                "man_days": 6
             },
             {
                 "ID": "9500086",
@@ -111,11 +119,13 @@ let employees = [
                 "Designation": "Trainee",
                 "Department": "FL",
                 "subDepartment": "QL",
-                "covid_positive": false,
-                "infection_date":""
+                "covid_positive": true,
+                "infection_date":"5/18/2020",
+                "man_days": 5
             }
         ],
-        "status": "Covid+ve"
+        "status": "Covid+ve",
+        "man_days":5
     },
     {
         "ID": "9500085",
@@ -124,10 +134,11 @@ let employees = [
         "Designation": "Executive",
         "Department": "CASTING",
         "subDepartment": "QL",
-        "covid_positive": false,
-        "infection_date":"",
+        "covid_positive": true,
+        "infection_date":"5/19/2020",
         "in_contact":[],
-        "status": "Healthy"
+        "status": "Healthy",
+        "man_days": 6
     },
     {
         "ID": "9500086",
@@ -136,10 +147,11 @@ let employees = [
         "Designation": "Trainee",
         "Department": "FL",
         "subDepartment": "QL",
-        "covid_positive": false,
-        "infection_date":"",
+        "covid_positive": true,
+        "infection_date":"5/18/2020",
         "in_contact":[],
-        "status": "Healthy"
+        "status": "Healthy",
+        "man_days": 5
     },
     
 ]

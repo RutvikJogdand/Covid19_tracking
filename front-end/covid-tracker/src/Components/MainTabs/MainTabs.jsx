@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 import AllEmployees from '../AllEmployees/AllEmployees';
 import CovidPostiveEmployees from '../CovidPositiveEmployees/CovidPositiveEmployees';
 import { useSelector } from 'react-redux';
+import QuarantinedEmployees from '../QuarantinedEmployees/QuarantinedEmployees';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -79,7 +80,7 @@ export default function MainTabs() {
         >
           <Tab label={`All Employees (${allEmpArr.length>0?allEmpArr.length: "Loading.."})`  }   {...a11yProps(0)} />
           <Tab label={`Covid +ve (${allEmpArr.length>0?allEmpArr.filter(item => item.covid_positive === true).length: "Loading.."})`  } {...a11yProps(1)} />
-          <Tab label="Quarantine" {...a11yProps(2)} />
+          <Tab label={`Quarantined (${allEmpArr.length>0?allEmpArr.filter(item => item.covid_positive === true).length: "Loading.."})`  } {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -94,7 +95,7 @@ export default function MainTabs() {
           <CovidPostiveEmployees/>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          Item Three
+          <QuarantinedEmployees/>
         </TabPanel>
       </SwipeableViews>
     </div>

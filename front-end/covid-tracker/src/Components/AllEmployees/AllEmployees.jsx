@@ -12,6 +12,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
   table: {
@@ -105,42 +108,50 @@ export default function AllEmployees() {
     <br/>
     <br/>
     {/* Below Table displays list of all existing employees in the database */}
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Emp ID</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Department</TableCell>
-            <TableCell>Sub Department</TableCell>
-            <TableCell>Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {allEmpArr && allEmpArr.filter(item => item.Name.toLowerCase().includes(empSearch.toLowerCase())).map((row) => (
-            <TableRow key={row.ID}>
-              <TableCell component="th" scope="row">
-                {row.ID}
-              </TableCell>
-              <TableCell>{row.status}</TableCell>
-              <TableCell>{row.Name}</TableCell>
-              <TableCell>{row.Department}</TableCell>
-              <TableCell>{row.subDepartment}</TableCell>
-              <TableCell>
-                  {row.status === "Healthy" && row.covid_positive === false?
-                  
-                    <button onClick={() => handleOpen1(row.ID, row.Name)} className="btn btn-danger">Mark Covid</button>:
-
-                    <button onClick={() => handleOpen2(row.ID, row.Name)} className="btn btn-success">Mark Recover</button>
-
-                  }
-              </TableCell>
+    {
+         allEmpArr.filter(item => item.Name.toLowerCase().includes(empSearch.toLowerCase())).length > 0  ?
+        <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell> <h5> Emp ID  </h5> </TableCell>
+              <TableCell> <h5> Status </h5> </TableCell>
+              <TableCell> <h5> Name </h5> </TableCell>
+              <TableCell> <h5> Department </h5> </TableCell>
+              <TableCell> <h5> Sub Department </h5> </TableCell>
+              <TableCell> <h5> Actions </h5> </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {allEmpArr && allEmpArr.filter(item => item.Name.toLowerCase().includes(empSearch.toLowerCase())).map((row) => (
+              <TableRow key={row.ID}>
+                <TableCell component="th" scope="row">
+                  {row.ID}
+                </TableCell>
+                <TableCell>{row.status}</TableCell>
+                <TableCell>{row.Name}</TableCell>
+                <TableCell>{row.Department}</TableCell>
+                <TableCell>{row.subDepartment}</TableCell>
+                <TableCell>
+                    {row.status === "Healthy" && row.covid_positive === false?
+                    
+                      <button onClick={() => handleOpen1(row.ID, row.Name)} className="btn btn-danger">Mark Covid</button>:
+  
+                      <button onClick={() => handleOpen2(row.ID, row.Name)} className="btn btn-success">Mark Recover</button>
+  
+                    }
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      :
+      <div>
+          <p>No employees found</p>
+      </div>
+    }
+    
 
     {/* Modal to mark an employee as covid+ve: */}
     <Modal

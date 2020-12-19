@@ -11,7 +11,6 @@ function Routes()
             <Switch>
                 <Route exact path="/" render={() => <Login/>} />
                 <Route path="/dashboard" render={() => <Dashboard/> }  />
-                <Route path="/dashboard/:id" render={() => <Dashboard/>} />
             </Switch>
         </>
     )

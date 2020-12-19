@@ -44,7 +44,7 @@ export default function MainDrawer() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
+      <AppBar position="fixed" style={{background: "#E41B23"}} className={classes.appBar}>
         <Toolbar>
           {/* <Typography variant="h6" >
             Permanent drawer
@@ -62,7 +62,9 @@ export default function MainDrawer() {
         }}
         anchor="left"
       >
-       <img src="https://via.placeholder.com/40x65/" alt="logo"/>
+        <div>
+          <img src="https://raw.githubusercontent.com/RutvikJogdand/Covid19_tracking/main/front-end/photos/logo_size_invert.jpg" height="auto" width="100%" alt="logo"/>
+        </div>
         <div className={classes.toolbar} />
         
         {/* <Divider /> */}

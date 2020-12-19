@@ -64,6 +64,11 @@ const employeesSchema = new Schema(
             required: true,
             trim: true,
             default: "Healthy"
+        },
+
+        man_days:{
+            type: Number,
+            default: 0
         }
     },
 
