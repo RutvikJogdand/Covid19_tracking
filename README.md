@@ -58,4 +58,4 @@ Here i have considered two employees to have come in contact with two employees 
  </ul>
 
 ### Project Link:
-<a href="https://covid19-tracking.vercel.app/"> Covid Tracking App</a>
+<a href="https://covid-tracker-phi-drab.vercel.app/"> Covid Tracking App</a>
